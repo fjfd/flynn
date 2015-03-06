@@ -86,11 +86,13 @@ func splitProcID(procID []byte) (processType, jobID string) {
 }
 
 func streamFromMessage(m *rfc5424.Message) string {
-	switch m.Severity {
-	case 3:
-		return "stderr"
-	case 6:
+	switch string(m.MsgID) {
+	case "ID1":
 		return "stdout"
+	case "ID2":
+		return "stderr"
+	case "ID3":
+		return "initLog"
 	default:
 		return "unknown"
 	}
